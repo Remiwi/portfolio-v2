@@ -1,0 +1,140 @@
+---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+
+type Props = {
+  skills: ({ name: string; icon: string; hoverWidthClass: string } | string)[];
+};
+
+const skillsMap = new Map<
+  string,
+  {
+    name: string;
+    icon: string;
+    hoverWidthClass: string;
+  }
+>();
+(() => {
+  skillsMap.set("React", {
+    name: "React",
+    icon: "/src/assets/icons/react.png",
+    hoverWidthClass: "hover:w-24",
+  });
+  skillsMap.set("Typescript", {
+    name: "Typescript",
+    icon: "/src/assets/icons/typescript.png",
+    hoverWidthClass: "hover:w-33",
+  });
+  skillsMap.set("Python", {
+    name: "Python",
+    icon: "/src/assets/icons/python.png",
+    hoverWidthClass: "hover:w-26",
+  });
+  skillsMap.set("PostgreSQL", {
+    name: "PostgreSQL",
+    icon: "/src/assets/icons/postgresql.png",
+    hoverWidthClass: "hover:w-35",
+  });
+  skillsMap.set("Expo", {
+    name: "Expo",
+    icon: "/src/assets/icons/expo.png",
+    hoverWidthClass: "hover:w-22",
+  });
+  skillsMap.set("Sqlite", {
+    name: "Sqlite",
+    icon: "/src/assets/icons/sqlite.png",
+    hoverWidthClass: "hover:w-24",
+  });
+  skillsMap.set("React Native", {
+    name: "React Native",
+    icon: "/src/assets/icons/react.png",
+    hoverWidthClass: "hover:w-37",
+  });
+  skillsMap.set("Tailwind", {
+    name: "Tailwind",
+    icon: "/src/assets/icons/tailwind.png",
+    hoverWidthClass: "hover:w-28",
+  });
+  skillsMap.set("C#", {
+    name: "C#",
+    icon: "/src/assets/icons/csharp.png",
+    hoverWidthClass: "hover:w-20",
+  });
+  skillsMap.set("Unity", {
+    name: "Unity",
+    icon: "/src/assets/icons/unity.png",
+    hoverWidthClass: "hover:w-24",
+  });
+})();
+
+const gradient_colors = [
+  ["dark:bg-mygrad-0 ", "dark:bg-mygrad-50 "],
+  ["dark:bg-mygrad-0 ", "dark:bg-mygrad-50 ", "dark:bg-mygrad-100 "],
+  [
+    "dark:bg-mygrad-0 ",
+    "dark:bg-mygrad-30 ",
+    "dark:bg-mygrad-70 ",
+    "dark:bg-mygrad-100 ",
+  ],
+  [
+    "dark:bg-mygrad-0 ",
+    "dark:bg-mygrad-20 ",
+    "dark:bg-mygrad-40 ",
+    "dark:bg-mygrad-60 ",
+    "dark:bg-mygrad-80 ",
+    "dark:bg-mygrad-100 ",
+  ],
+];
+
+const icons = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/icons/*.png"
+);
+const skills = Astro.props.skills.map((skill) => {
+  if (typeof skill === "string") {
+    const found = skillsMap.get(skill);
+    if (found) {
+      return found;
+    }
+    throw new Error(`Skill not found: ${skill}`);
+  } else {
+    return skill;
+  }
+});
+skills.forEach((skill) => {
+  if (!icons[skill.icon]) {
+    throw new Error(`Icon not found: ${skill.icon}`);
+  }
+});
+---
+
+<div class="flex flex-row justify-center lg:justify-start">
+  {
+    skills.map((skill, i) => {
+      if (typeof skill === "string") {
+        skill = skillsMap.get(skill)!;
+      }
+      return (
+        <div class="group px-2 first:pl-0 last:pr-0">
+          <div
+            class={
+              `flex flex-row p-2 bg-pink-200 rounded-full transition-width duration-500 h-10 w-10 ` +
+              gradient_colors[skills.length - 2][i] +
+              skill.hoverWidthClass
+            }
+          >
+            <Image
+              class="rounded-full dark:invert dark:brightness-200"
+              src={skill.icon}
+              alt={skill.name + " Icon"}
+              width={24}
+              height={24}
+            />
+            <p class="overflow-hidden pl-2 text-black dark:text-zinc-300 text-base">
+              {skill.name.replace(" ", "\u00A0")}
+            </p>
+          </div>
+        </div>
+      );
+    })
+  }
+</div>
