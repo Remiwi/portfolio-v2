@@ -1,0 +1,42 @@
+---
+import Image from "astro/components/Image.astro";
+
+type Props = {
+  class?: string;
+};
+---
+
+<div class={Astro.props.class}>
+  <div class="flex flex-row items-center justify-center gap-1">
+    <Image
+      src="/src/assets/icons/github.png"
+      alt="Github Icon"
+      width={100}
+      height={100}
+      class="h-6 w-6 dark:brightness-200 dark:invert"
+    />
+    <a href="https://github.com/Remiwi">GitHub</a>
+  </div>
+  <div class="flex flex-row items-center justify-center gap-1">
+    <Image
+      src="/src/assets/icons/linkedin.png"
+      alt="LinkedIn Icon"
+      width={100}
+      height={100}
+      class="h-6 w-6 dark:brightness-200 dark:invert"
+    />
+    <a href="https://www.linkedin.com/in/remivaughan/">LinkedIn</a>
+  </div>
+  <div class="flex flex-row items-center justify-center gap-1">
+    <Image
+      src="/src/assets/icons/email.png"
+      alt="Email Icon"
+      width={100}
+      height={100}
+      class="h-6 w-6 dark:brightness-200 dark:invert"
+    />
+    <a href={"mailto:" + atob("cmVtaXZhdWdoYW5jb250YWN0QGdtYWlsLmNvbQ==")}>
+      Email
+    </a>
+  </div>
+</div>

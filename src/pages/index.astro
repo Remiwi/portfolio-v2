@@ -2,9 +2,10 @@
 import Skills from "@components/Skills.astro";
 import ThemeButton from "@components/ThemeButton.astro";
 import LinkChip from "@components/LinkChip.astro";
+import Contacts from "@components/Contacts.astro";
 ---
 
-<div class="flex h-full w-full items-center justify-center">
+<div class="flex h-full w-full flex-col items-center justify-center">
   <Skills skills={["React", "Typescript", "Python"]} />
   <ThemeButton />
   <LinkChip
@@ -12,4 +13,5 @@ import LinkChip from "@components/LinkChip.astro";
     leadingIcon="/src/assets/icons/react.png"
     highlighted
   />
+  <Contacts class="pt-4" />
 </div>
