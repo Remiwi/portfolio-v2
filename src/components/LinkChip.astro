@@ -1,0 +1,43 @@
+---
+import Image from "astro/components/Image.astro";
+
+interface Props {
+  leadingIcon: string;
+  name: string;
+  highlighted?: boolean;
+  href?: string;
+  hideWhenSmall?: boolean;
+}
+
+const background = Astro.props.highlighted
+  ? "bg-blue-200 shadow-md shadow-zinc-400 dark:shadow-none dark:bg-gradient-to-tr from-mygrad-0 to-mygrad-100"
+  : "bg-transparent border border-slate-400 dark:border-white";
+
+const icons = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/icons/*.png"
+);
+if (!icons[Astro.props.leadingIcon]) {
+  throw new Error(`Icon not found: ${Astro.props.leadingIcon}`);
+}
+const icon = icons[Astro.props.leadingIcon]();
+---
+
+<div class={Astro.props.hideWhenSmall ? "invisible xs:visible" : ""}>
+  <a
+    href={Astro.props.href}
+    class:list={[
+      "transition-all-but-color flex h-8 cursor-pointer flex-row items-center gap-1.5 rounded-lg p-1.5 hover:scale-105",
+      background,
+    ]}
+    target="_blank"
+  >
+    <Image
+      class="h-full w-full object-contain dark:brightness-200 dark:invert"
+      src={icon}
+      alt={Astro.props.name + " Logo"}
+      width={48}
+      height={48}
+    />
+    <p class="pb-0">{Astro.props.name}</p>
+  </a>
+</div>
