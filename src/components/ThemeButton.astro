@@ -1,0 +1,63 @@
+---
+import Image from "astro/components/Image.astro";
+import sun from "@assets/icons/sun.png";
+import moon from "@assets/icons/moon.png";
+---
+
+<script>
+  document.querySelector(".themeToggle")?.addEventListener("click", () => {
+    const dark = document.documentElement.classList.toggle("dark");
+    document.cookie = "theme=" + (dark ? "dark" : "light");
+  });
+</script>
+<button class="themeToggle">
+  <div
+    class="flex h-9 w-9 items-center justify-center rounded-full border bg-slate-200 dark:border-transparent dark:bg-zinc-800"
+  >
+    <Image
+      class="h-8 w-8 dark:hidden"
+      src={sun}
+      width={100}
+      height={100}
+      alt="Darkmode Toggle"
+    />
+    <Image
+      class="hidden h-8 w-8 brightness-200 invert dark:block"
+      src={moon}
+      width={100}
+      height={100}
+      alt="Darkmode Toggle"
+    />
+  </div>
+</button>
+
+<!-- export default function DarkmodeButton() {
+  const cookies = useCookies();
+  const [darkTheme, setDarkTheme] = useState(cookies.get("theme") === "dark");
+
+  const setDark = (nowDark: boolean) => {
+    if (nowDark) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+    cookies.set("theme", nowDark ? "dark" : "light");
+    setDarkTheme(nowDark);
+  };
+
+  useEffect(() => {
+    if (
+      cookies.get("theme") === "dark" ||
+      (cookies.get("theme") === undefined &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      setDark(true);
+    } else {
+      setDark(false);
+    }
+  }, []);
+
+  return (
+    
+  );
+} -->
