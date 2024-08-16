@@ -9,9 +9,9 @@ type Props = {
   href?: string;
 };
 
-// TODO: Fix this image thing
-// const image = Astro.props.image ?? DummyImage;
-const image = DummyImage;
+const image =
+  Astro.props.image ??
+  "https://dummyimage.com/480x312.png?text=Project%20Image";
 ---
 
 <div
