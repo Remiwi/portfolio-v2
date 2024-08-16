@@ -1,0 +1,62 @@
+---
+import Image from "astro/components/Image.astro";
+import Skills from "@components/Skills.astro";
+
+type Props = {
+  title?: string;
+  description?: string;
+  image?: string;
+  skills?: string[];
+  id?: string;
+};
+
+const title = Astro.props.title ?? "Project Title";
+const image =
+  Astro.props.image ??
+  "https://dummyimage.com/480x312.png?text=Project%20Image";
+const skills = Astro.props.skills ?? ["React", "Typescript", "Tailwind"];
+---
+
+<div
+  class="scroll-mt-16 overflow-hidden rounded-3xl shadow-lg shadow-zinc-400 transition-transform dark:shadow-2xl dark:shadow-zinc-950"
+  id={Astro.props.id}
+>
+  <div
+    class="flex h-full w-full flex-col justify-between bg-white dark:bg-zinc-950"
+  >
+    <div class="group relative">
+      <div
+        class="absolute z-10 h-full w-full bg-gradient-to-b from-transparent from-60% dark:from-50% dark:to-zinc-950"
+      >
+      </div>
+      <div
+        class="absolute h-full w-full bg-myhoverbg-100 p-4 opacity-0 transition-all group-hover:opacity-100 dark:bg-myhoverbg-0"
+      >
+        <p class="absolute z-20 pr-4 font-semibold text-black dark:text-white">
+          {Astro.props.description}
+        </p>
+      </div>
+      <Image
+        class="w-full object-contain"
+        src={image}
+        alt="Project Image"
+        width={480}
+        height={312}
+      />
+    </div>
+    <div class="relative"></div>
+    <div class="shadow-inner shadow-gray-300 dark:shadow-none">
+      <div class="flex w-full items-end justify-between p-2">
+        <h3 class="pb-1 text-xl font-semibold sm:text-2xl xl:text-3xl">
+          {title}
+        </h3>
+        <div class="flex flex-grow flex-row items-center justify-end gap-2">
+          <slot />
+        </div>
+      </div>
+      <div class="justify-left flex w-full flex-row px-2 pb-2">
+        <Skills skills={skills} />
+      </div>
+    </div>
+  </div>
+</div>
