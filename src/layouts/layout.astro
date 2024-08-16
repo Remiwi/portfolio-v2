@@ -5,11 +5,17 @@ import "@fontsource/inter";
 
 <html lang="en" class="scroll-smooth">
   <script>
-    // TODO: Make page be served with dark set depending on request cookies?
-    // TODO: Detect user preference and set dark mode accordingly
-    // TODO: Separate dark mode from layout???
-    const dark = document.cookie.includes("theme=dark");
-    if (dark) {
+    let theme = document.cookie.includes("theme=dark")
+      ? "dark"
+      : document.cookie.includes("theme=light")
+        ? "light"
+        : null;
+    if (theme === null) {
+      theme = window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+    }
+    if (theme === "dark") {
       document.documentElement.classList.add("dark");
     }
   </script>
