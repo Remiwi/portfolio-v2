@@ -1,14 +1,16 @@
 ---
 import "src/globals.css";
 
-import LinkChip from "@components/LinkChip.astro";
+import Chip from "@components/Chip.astro";
 import Contacts from "@components/Contacts.astro";
 import Project from "@components/Project.astro";
 import MiniProject from "@components/MiniProject.astro";
 import Layout from "src/layouts/layout.astro";
 import Menu from "@components/Menu.astro";
+import Toast from "@components/Toast.astro";
 ---
 
+<Toast />
 <Layout>
   <div
     class="top-0 flex flex-col gap-8 pt-20 lg:fixed lg:col-span-2 lg:h-screen lg:justify-between lg:pt-48"
@@ -61,25 +63,25 @@ import Menu from "@components/Menu.astro";
           skills={["React Native", "Typescript", "Expo", "Tailwind", "Sqlite"]}
           id="temporal"
         >
-          <!-- <LinkChip
-            alert="Pending review from Google Play Store"
+          <Chip
+            message="Pending review from Google Play Store..."
             leadingIcon="/src/assets/icons/playstore.png"
             name="Playstore"
             hideWhenSmall={true}
-          /> -->
+          />
           {
-            /* <LinkChip
+            /* <Chip
             alert="Pending review and testing as per recent changes to Play Store policy"
             leadingIcon="/src/assets/icons/android.png"
             name="APK"
           /> */
           }
-          <LinkChip
+          <Chip
             href="https://github.com/Remiwi/TimeTracker"
             leadingIcon="/src/assets/icons/github.png"
             name="Repo"
           />
-          <LinkChip
+          <Chip
             href="https://www.youtube.com/watch?v=-bqt96mCDNk"
             leadingIcon="/src/assets/icons/youtube.png"
             name="Demo"
@@ -97,7 +99,7 @@ import Menu from "@components/Menu.astro";
           skills={["React Native", "Typescript", "Expo", "Sqlite"]}
           id="routines"
         >
-          <LinkChip
+          <Chip
             href="https://github.com/Remiwi/RoutinesApp"
             leadingIcon="/src/assets/icons/github.png"
             name="Repo"
@@ -116,14 +118,14 @@ import Menu from "@components/Menu.astro";
           skills={["React", "Typescript", "Python", "PostgreSQL"]}
           id="youcaption"
         >
-          <LinkChip
+          <Chip
             href="https://github.com/Remiwi/YouCaption"
             leadingIcon="/src/assets/icons/github.png"
             name="Repo"
             highlighted={true}
           />
           {
-            /* <LinkChip
+            /* <Chip
             href="/YouCaption"
             leadingIcon="/src/assets/icons/newtab.png"
             name="Live"
@@ -138,12 +140,12 @@ import Menu from "@components/Menu.astro";
           skills={["React", "Tailwind", "Typescript"]}
           id="portfolio"
         >
-          <!-- <LinkChip
+          <Chip
             leadingIcon="/src/assets/icons/newtab.png"
             name="Live"
-            alert="But you're already here..."
-          /> -->
-          <LinkChip
+            message="But you're already here..."
+          />
+          <Chip
             href="https://github.com/Remiwi/portfolio"
             leadingIcon="/src/assets/icons/github.png"
             name="Repo"

@@ -1,0 +1,50 @@
+---
+import Image from "astro/components/Image.astro";
+import CloseIcon from "@assets/icons/close.png";
+---
+
+<script>
+  const toast = document.getElementById("toast");
+  const toastText = document.getElementById("toast-text");
+  const toastClose = document.getElementById("toast-close");
+
+  if (!toast || !toastText || !toastClose) {
+    throw new Error("Toast elements not found");
+  }
+
+  function showToast(message: string) {
+    if (!toast || !toastText || !toastClose) {
+      throw new Error("Toast elements not found");
+    }
+    toastText.textContent = message;
+    toast.style.transform = "translateY(0)";
+  }
+
+  toastClose.addEventListener("click", () => {
+    toast.style.transform = "translateY(150%)";
+  });
+</script>
+<div class="fixed bottom-4 z-50 flex w-full justify-center">
+  <div
+    id="toast"
+    class:list={[
+      "flex min-h-14 flex-col items-end rounded-lg border-zinc-400 bg-gray-100 shadow-md shadow-zinc-400",
+      "dark:border dark:bg-stone-900 dark:shadow-none",
+      "transition-transform duration-300 ease-in-out",
+    ]}
+    style={{ width: "30rem", transform: "translateY(150%)", maxWidth: "90vw" }}
+  >
+    <Image
+      id="toast-close"
+      src={CloseIcon}
+      alt="X"
+      class="absolute h-9 w-9 cursor-pointer p-2 dark:brightness-200 dark:invert"
+    />
+    <p id="toast-text" class="w-full px-10 py-4 dark:text-zinc-300">
+      Quis ut do laborum enim ex sint minim ullamco magna pariatur eiusmod.
+      Minim dolor culpa quis ex nulla enim. Labore ipsum laborum irure
+      reprehenderit occaecat in proident ut id do fugiat. Velit voluptate
+      aliquip ea excepteur in. Aute ipsum sit amet amet ea proident fugiat est.
+    </p>
+  </div>
+</div>

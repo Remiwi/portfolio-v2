@@ -6,6 +6,7 @@ interface Props {
   name: string;
   highlighted?: boolean;
   href?: string;
+  message?: string;
   hideWhenSmall?: boolean;
 }
 
@@ -22,14 +23,43 @@ if (!icons[Astro.props.leadingIcon]) {
 const icon = icons[Astro.props.leadingIcon]();
 ---
 
+<script>
+  function showToast(message: string) {
+    const toast = document.getElementById("toast");
+    const toastText = document.getElementById("toast-text");
+    const toastClose = document.getElementById("toast-close");
+    if (!toast || !toastText || !toastClose) {
+      throw new Error("Toast elements not found");
+    }
+    toastText.textContent = message;
+    toast.style.transform = "translateY(0)";
+    setTimeout(() => {
+      if (toastText.textContent === message) {
+        toast.style.transform = "translateY(150%)";
+      }
+    }, 3000);
+  }
+
+  const anchors = document.querySelectorAll(".chip");
+  anchors.forEach((anchor) => {
+    anchor.addEventListener("click", () => {
+      const message = anchor.getAttribute("data-message");
+      if (message) {
+        showToast(message);
+      }
+    });
+  });
+</script>
 <div class={Astro.props.hideWhenSmall ? "invisible xs:visible" : ""}>
   <a
     href={Astro.props.href}
     class:list={[
+      "chip",
       "transition-all-but-color flex h-8 cursor-pointer flex-row items-center gap-1.5 rounded-lg p-1.5 hover:scale-105",
       background,
     ]}
     target="_blank"
+    data-message={Astro.props.message}
   >
     <Image
       class="h-full w-full object-contain dark:brightness-200 dark:invert"
