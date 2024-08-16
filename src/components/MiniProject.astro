@@ -1,0 +1,51 @@
+---
+import Image from "astro/components/Image.astro";
+import DummyImage from "@assets/thumbnails/dummy.png";
+
+type Props = {
+  title?: string;
+  image?: string;
+  description?: string;
+  href?: string;
+};
+
+// TODO: Fix this image thing
+// const image = Astro.props.image ?? DummyImage;
+const image = DummyImage;
+---
+
+<div
+  class="transition-all-but-color relative box-content flex w-fit flex-col items-center rounded-xl border border-transparent shadow-zinc-400 hover:border-gray-200 hover:bg-gray-50 hover:shadow-xl dark:shadow-zinc-950 dark:hover:border-transparent dark:hover:bg-zinc-950 dark:hover:shadow-lg md:w-full md:flex-row md:items-start"
+>
+  <Image
+    class="h-full w-60 rounded-md object-contain md:rounded-none md:rounded-l-md"
+    src={image}
+    alt="Project Image"
+    width={144}
+    height={94}
+  />
+  <div class="flex w-full flex-col items-center py-2 pl-5 pr-2 md:items-start">
+    {
+      Astro.props.href && (
+        <a class="flex flex-row items-center" href={Astro.props.href}>
+          <h3 class="inline text-xl font-semibold">{Astro.props.title}</h3>
+          <Image
+            class="inline h-6 w-6 object-contain pl-2 dark:invert"
+            src="/icons/newtab.png"
+            alt="New Tab Icon"
+            width={24}
+            height={24}
+          />
+        </a>
+      )
+    }
+    {
+      !Astro.props.href && (
+        <h3 class="inline text-xl font-semibold">{Astro.props.title}</h3>
+      )
+    }
+    <p class="w-72 text-center md:w-full md:text-start">
+      {Astro.props.description}
+    </p>
+  </div>
+</div>
