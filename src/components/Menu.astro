@@ -13,7 +13,10 @@ type Props = {
 >
   <div
     id="menu-indicator"
-    class="absolute -left-1 -z-10 h-10 w-0 bg-blue-100 from-mygrad-0 to-mygrad-100 transition-all duration-300 dark:bg-gradient-to-r"
+    class="absolute -left-1 -z-10 h-10 bg-blue-100 from-mygrad-0 to-mygrad-100 transition-all duration-300 dark:bg-gradient-to-r"
+    style={{
+      width: 0,
+    }}
   >
   </div>
 </div>
@@ -21,7 +24,7 @@ type Props = {
   const menu = document.querySelector<HTMLDivElement>("#menu");
   const indicator = document.querySelector<HTMLDivElement>("#menu-indicator");
   const sectionSelector = menu?.dataset.sectionSelector ?? "h2";
-  const extraWidth = Number(menu?.dataset.extraWidth) ?? 0;
+  const extraWidth = Number(menu?.dataset.extraWidth ?? 0);
   const headers = document.querySelectorAll<Element>(sectionSelector);
   try {
     if (!menu) throw new Error("Menu not found");
@@ -41,23 +44,25 @@ type Props = {
       console.log("Attached menu item for", header.id);
     }
 
-    // Add the scroll listener
-    window.addEventListener("scroll", (event) => {
+    const scrollListener = () => {
       // Find section
       const height = window.innerHeight;
       let curSection = 0;
       headers.forEach((header, index) => {
-        if (header.getBoundingClientRect().top < height / 2) {
+        if (header.getBoundingClientRect().top < height * 0.4) {
           curSection = index;
         }
       });
 
       // Update indicator based on menu item
       const menuItem = menuItems[curSection];
-      indicator.style.top = menuItem.offsetTop + "px";
-      indicator.style.height = menuItem.offsetHeight + "px";
+      indicator.style.top = menuItem.offsetTop - 1 + "px";
       indicator.style.width = menuItem.offsetWidth + extraWidth + "px";
-    });
+    };
+    scrollListener();
+
+    // Add the scroll listener
+    window.addEventListener("scroll", scrollListener);
   } catch (e) {
     console.error(e);
     alert("Error in Menu.astro");
