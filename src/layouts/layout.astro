@@ -1,0 +1,28 @@
+---
+import ThemeButton from "@components/ThemeButton.astro";
+---
+
+<html lang="en" class="scroll-smooth">
+  <script>
+    // TODO: Make page be served with dark set depending on request cookies?
+    // TODO: Detect user preference and set dark mode accordingly
+    // TODO: Separate dark mode from layout???
+    const dark = document.cookie.includes("theme=dark");
+    if (dark) {
+      document.documentElement.classList.add("dark");
+    }
+  </script>
+  <body class="dark:bg-zinc-900">
+    <script>
+      0;
+    </script>
+    <div>
+      <div class="static p-4 pb-1 lg:fixed">
+        <ThemeButton />
+      </div>
+      <div class="page-container dark:bg-zinc-900 dark:text-zinc-300">
+        <slot />
+      </div>
+    </div>
+  </body>
+</html>
