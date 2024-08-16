@@ -37,7 +37,11 @@ type Props = {
       const a = document.createElement("a");
       a.href = "#" + header.id;
       a.id = "a-" + header.id;
-      a.textContent = header.textContent;
+      // Menu item words should be capitalized
+      a.textContent = (header.textContent ?? "")
+        .split(" ")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
       a.classList.add("w-fit");
       menu?.appendChild(a);
       menuItems.push(a);
