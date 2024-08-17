@@ -28,14 +28,17 @@ const icon = icons[Astro.props.leadingIcon]();
     const toast = document.getElementById("toast");
     const toastText = document.getElementById("toast-text");
     const toastClose = document.getElementById("toast-close");
-    if (!toast || !toastText || !toastClose) {
+    const toastBar = document.getElementById("toast-bar");
+    if (!toast || !toastText || !toastClose || !toastBar) {
       throw new Error("Toast elements not found");
     }
     toastText.textContent = message;
     toast.style.transform = "translateY(0)";
+    toastBar.style.display = "block";
     setTimeout(() => {
       if (toastText.textContent === message) {
         toast.style.transform = "translateY(150%)";
+        toastBar.style.display = "none";
       }
     }, 3000);
   }

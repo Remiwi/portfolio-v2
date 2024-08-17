@@ -7,21 +7,14 @@ import CloseIcon from "@assets/icons/close.png";
   const toast = document.getElementById("toast");
   const toastText = document.getElementById("toast-text");
   const toastClose = document.getElementById("toast-close");
+  const toastBar = document.getElementById("toast-bar");
 
-  if (!toast || !toastText || !toastClose) {
+  if (!toast || !toastText || !toastClose || !toastBar) {
     throw new Error("Toast elements not found");
   }
-
-  function showToast(message: string) {
-    if (!toast || !toastText || !toastClose) {
-      throw new Error("Toast elements not found");
-    }
-    toastText.textContent = message;
-    toast.style.transform = "translateY(0)";
-  }
-
   toastClose.addEventListener("click", () => {
     toast.style.transform = "translateY(150%)";
+    toastBar.style.display = "none";
   });
 </script>
 <div class="fixed bottom-4 z-50 flex w-full justify-center">
@@ -46,5 +39,11 @@ import CloseIcon from "@assets/icons/close.png";
       reprehenderit occaecat in proident ut id do fugiat. Velit voluptate
       aliquip ea excepteur in. Aute ipsum sit amet amet ea proident fugiat est.
     </p>
+    <div
+      id="toast-bar"
+      class="h-1 w-full self-start bg-pink-300 from-mygrad-0 to-mygrad-100 dark:bg-gradient-to-r"
+      style={{ display: "none" }}
+    >
+    </div>
   </div>
 </div>
