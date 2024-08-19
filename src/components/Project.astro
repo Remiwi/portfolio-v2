@@ -1,4 +1,5 @@
 ---
+import type { ImageMetadata } from "astro";
 import Image from "astro/components/Image.astro";
 import Skills from "@components/Skills.astro";
 
@@ -10,10 +11,13 @@ type Props = {
   id?: string;
 };
 
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/thumbnails/*.png"
+);
+if (Astro.props.image && !images[Astro.props.image ?? ""])
+  throw new Error("Invalid image: " + Astro.props.image);
+
 const title = Astro.props.title ?? "Project Title";
-const image =
-  Astro.props.image ??
-  "https://dummyimage.com/480x312.png?text=Project%20Image";
 const skills = Astro.props.skills ?? ["React", "Typescript", "Tailwind"];
 ---
 
@@ -36,13 +40,28 @@ const skills = Astro.props.skills ?? ["React", "Typescript", "Tailwind"];
           {Astro.props.description}
         </p>
       </div>
-      <Image
-        class="w-full object-contain"
-        src={image}
-        alt="Project Image"
-        width={480}
-        height={312}
-      />
+      {
+        Astro.props.image && (
+          <Image
+            class="w-full object-contain"
+            src={images[Astro.props.image]()}
+            alt="Project Image"
+            width={480}
+            height={312}
+          />
+        )
+      }
+      {
+        !Astro.props.image && (
+          <Image
+            class="w-full object-contain"
+            src="https://dummyimage.com/480x312.png?text=Project%20Image"
+            alt="Project Image"
+            width={480}
+            height={312}
+          />
+        )
+      }
     </div>
     <div class="relative"></div>
     <div class="shadow-inner shadow-gray-300 dark:shadow-none">

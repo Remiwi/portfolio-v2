@@ -1,4 +1,5 @@
 ---
+import type { ImageMetadata } from "astro";
 import Image from "astro/components/Image.astro";
 import DummyImage from "@assets/thumbnails/dummy.png";
 
@@ -9,21 +10,38 @@ type Props = {
   href?: string;
 };
 
-const image =
-  Astro.props.image ??
-  "https://dummyimage.com/480x312.png?text=Project%20Image";
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/thumbnails/*.png"
+);
+if (Astro.props.image && !images[Astro.props.image ?? ""])
+  throw new Error("Invalid image: " + Astro.props.image);
 ---
 
 <div
   class="transition-all-but-color relative box-content flex w-fit flex-col items-center rounded-xl border border-transparent shadow-zinc-400 hover:border-gray-200 hover:bg-gray-50 hover:shadow-xl dark:shadow-zinc-950 dark:hover:border-transparent dark:hover:bg-zinc-950 dark:hover:shadow-lg md:w-full md:flex-row md:items-start"
 >
-  <Image
-    class="h-full w-60 rounded-md object-contain md:rounded-none md:rounded-l-md"
-    src={image}
-    alt="Project Image"
-    width={144}
-    height={94}
-  />
+  {
+    Astro.props.image && (
+      <Image
+        class="w-full object-contain"
+        src={images[Astro.props.image]()}
+        alt="Project Image"
+        width={144}
+        height={94}
+      />
+    )
+  }
+  {
+    !Astro.props.image && (
+      <Image
+        class="w-full object-contain"
+        src="https://dummyimage.com/480x312.png?text=Project%20Image"
+        alt="Project Image"
+        width={144}
+        height={94}
+      />
+    )
+  }
   <div class="flex w-full flex-col items-center py-2 pl-5 pr-2 md:items-start">
     {
       Astro.props.href && (
