@@ -23,7 +23,7 @@ if (Astro.props.image && !images[Astro.props.image ?? ""])
   {
     Astro.props.image && (
       <Image
-        class="w-full object-contain"
+        class="h-full w-60 rounded-md object-contain md:rounded-none md:rounded-l-md"
         src={images[Astro.props.image]()}
         alt="Project Image"
         width={144}
@@ -34,7 +34,7 @@ if (Astro.props.image && !images[Astro.props.image ?? ""])
   {
     !Astro.props.image && (
       <Image
-        class="w-full object-contain"
+        class="h-full w-60 rounded-md object-contain md:rounded-none md:rounded-l-md"
         src="https://dummyimage.com/480x312.png?text=Project%20Image"
         alt="Project Image"
         width={144}
