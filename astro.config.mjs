@@ -6,7 +6,6 @@ import tailwind from "@astrojs/tailwind";
 export default defineConfig({
   integrations: [tailwind()],
   site: 'https://remiwi.github.io',
-  base: '/portfolio-v2',
   image: {
     service: passthroughImageService(),
   },
