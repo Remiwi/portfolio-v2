@@ -46,12 +46,11 @@ import Toast from "@components/Toast.astro";
           degree, and you can find me now creating delightful user-experience
           for both mobile devices and the web.
         </p>
-        <p>Check out my projects below!</p>
+        <p id="timetracker">Check out my projects below!</p>
+        {/* ^ TODO: Remove this ID whenver that google app gets a response */}
       </div>
-      <h2 id="projects" class="pb-0 pt-32">Projects</h2>
+      <h2 id="projects" class="pb-8 pt-32">Projects</h2>
       <div class="flex flex-col gap-16">
-        <div id="timetracker"></div>{" "}
-        {/* For that one google app... remove later */}
         <Project
           title="Temporal"
           description={[
