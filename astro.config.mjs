@@ -5,7 +5,8 @@ import tailwind from "@astrojs/tailwind";
 // https://astro.build/config
 export default defineConfig({
   integrations: [tailwind()],
-  site: 'https://www.remivaughan.com',
+  site: "https://remiwi.github.io",
+  base: "/portfolio-v2/",
   image: {
     service: passthroughImageService(),
   },
