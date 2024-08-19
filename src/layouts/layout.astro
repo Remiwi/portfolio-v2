@@ -4,21 +4,25 @@ import "@fontsource/inter";
 ---
 
 <html lang="en" class="scroll-smooth">
-  <script>
-    let theme = document.cookie.includes("theme=dark")
-      ? "dark"
-      : document.cookie.includes("theme=light")
-        ? "light"
-        : null;
-    if (theme === null) {
-      theme = window.matchMedia("(prefers-color-scheme: dark)").matches
+  <head>
+    <title>Remi Vaughan's Portfolio</title>
+    <link rel="icon" href="/public/favicon.ico" type="image/x-icon" />
+    <script>
+      let theme = document.cookie.includes("theme=dark")
         ? "dark"
-        : "light";
-    }
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
-    }
-  </script>
+        : document.cookie.includes("theme=light")
+          ? "light"
+          : null;
+      if (theme === null) {
+        theme = window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+      }
+      if (theme === "dark") {
+        document.documentElement.classList.add("dark");
+      }
+    </script>
+  </head>
   <body class="dark:bg-zinc-900">
     <script>
       0;
